@@ -4,7 +4,7 @@
 "   - CompleteHelper.vim autoload script
 "   - Complete/Repeat.vim autoload script
 "
-" Copyright: (C) 2012 Ingo Karkat
+" Copyright: (C) 2012-2013 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
@@ -28,22 +28,22 @@ function! SameFiletypeComplete#SameFiletypeComplete( findstart, base )
 	    return col('.') - 1
 	else
 	    let l:matches = []
-	    call CompleteHelper#FindMatches( l:matches, '\V\<' . escape(s:fullText, '\') . '\zs\%(\k\@!\.\)\+\k\+', {'complete': s:GetCompleteOption(), 'bufferPredicate': function('SameFiletypeComplete#FiletypePredicate')} )
+	    call CompleteHelper#FindMatches(l:matches, '\V\<' . escape(s:fullText, '\') . '\zs\%(\k\@!\.\)\+\k\+', {'complete': s:GetCompleteOption(), 'bufferPredicate': function('SameFiletypeComplete#FiletypePredicate')})
 	    return l:matches
 	endif
     endif
 
     if a:findstart
-	" Locate the start of the alphabetic characters.
+	" Locate the start of the keyword characters.
 	let l:startCol = searchpos('\k*\%#', 'bn', line('.'))[1]
 	if l:startCol == 0
 	    let l:startCol = col('.')
 	endif
 	return l:startCol - 1 " Return byte index, not column.
     else
-	" Find matches starting with a:base.
+	" Find matches (starting with the optional a:base).
 	let l:matches = []
-	call CompleteHelper#FindMatches( l:matches, '\V\<' . escape(a:base, '\') . '\k\+', {'complete': s:GetCompleteOption(), 'bufferPredicate': function('SameFiletypeComplete#FiletypePredicate')} )
+	call CompleteHelper#FindMatches(l:matches, '\V\<' . escape(a:base, '\') . '\k\+', {'complete': s:GetCompleteOption(), 'bufferPredicate': function('SameFiletypeComplete#FiletypePredicate')})
 	return l:matches
     endif
 endfunction
