@@ -4,13 +4,15 @@
 "   - CompleteHelper.vim autoload script
 "   - Complete/Repeat.vim autoload script
 "
-" Copyright: (C) 2012-2013 Ingo Karkat
+" Copyright: (C) 2012-2014 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
 "   1.00.001	27-Sep-2012	file creation
+let s:save_cpo = &cpo
+set cpo&vim
 
 function! s:GetCompleteOption()
     return (exists('b:SameFiletypeComplete_complete') ? b:SameFiletypeComplete_complete : g:SameFiletypeComplete_complete)
@@ -28,7 +30,18 @@ function! SameFiletypeComplete#SameFiletypeComplete( findstart, base )
 	    return col('.') - 1
 	else
 	    let l:matches = []
-	    call CompleteHelper#FindMatches(l:matches, '\V\<' . escape(s:fullText, '\') . '\zs\%(\k\@!\.\)\+\k\+', {'complete': s:GetCompleteOption(), 'bufferPredicate': function('SameFiletypeComplete#FiletypePredicate')})
+
+	    " Need to translate the embedded ^@ newline into the \n atom.
+	    let l:previousCompleteExpr = substitute(escape(s:fullText, '\'), '\n', '\\n', 'g')
+
+	    call CompleteHelper#FindMatches(l:matches,
+	    \   '\V\<' . l:previousCompleteExpr . '\zs\%(\%(\k\@!\_.\)\+\k\+\|\_s\*\%(\k\@!\.\)\+\)',
+	    \   {
+	    \       'complete': s:GetCompleteOption(),
+	    \       'bufferPredicate': function('SameFiletypeComplete#FiletypePredicate'),
+	    \       'processor': function('CompleteHelper#Repeat#Processor')
+	    \   }
+	    \)
 	    return l:matches
 	endif
     endif
@@ -59,4 +72,6 @@ function! SameFiletypeComplete#Expr()
     return "\<C-x>\<C-u>"
 endfunction
 
+let &cpo = s:save_cpo
+unlet s:save_cpo
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
