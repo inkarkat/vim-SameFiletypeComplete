@@ -10,6 +10,7 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.01.002	07-Apr-2014	Make repeat across lines work.
 "   1.00.001	27-Sep-2012	file creation
 let s:save_cpo = &cpo
 set cpo&vim
@@ -35,7 +36,7 @@ function! SameFiletypeComplete#SameFiletypeComplete( findstart, base )
 	    let l:previousCompleteExpr = substitute(escape(s:fullText, '\'), '\n', '\\n', 'g')
 
 	    call CompleteHelper#FindMatches(l:matches,
-	    \   '\V\<' . l:previousCompleteExpr . '\zs\%(\%(\k\@!\_.\)\+\k\+\|\_s\*\%(\k\@!\.\)\+\)',
+	    \   '\V\<' . l:previousCompleteExpr . '\zs\%(\%(\k\@!\.\)\+\k\+\|\_s\+\%(\k\@!\.\)\*\k\+\|\_s\*\%(\k\@!\.\)\+\)',
 	    \   {
 	    \       'complete': s:GetCompleteOption(),
 	    \       'bufferPredicate': function('SameFiletypeComplete#FiletypePredicate'),
