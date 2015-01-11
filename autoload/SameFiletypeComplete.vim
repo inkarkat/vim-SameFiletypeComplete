@@ -10,6 +10,8 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.01.003	09-Apr-2014	Let CompleteHelper#Repeat#GetPattern() assemble
+"				the repeat pattern.
 "   1.01.002	07-Apr-2014	Make repeat across lines work.
 "   1.00.001	27-Sep-2012	file creation
 let s:save_cpo = &cpo
@@ -31,12 +33,8 @@ function! SameFiletypeComplete#SameFiletypeComplete( findstart, base )
 	    return col('.') - 1
 	else
 	    let l:matches = []
-
-	    " Need to translate the embedded ^@ newline into the \n atom.
-	    let l:previousCompleteExpr = substitute(escape(s:fullText, '\'), '\n', '\\n', 'g')
-
 	    call CompleteHelper#FindMatches(l:matches,
-	    \   '\V\<' . l:previousCompleteExpr . '\zs\%(\%(\k\@!\.\)\+\k\+\|\_s\+\%(\k\@!\.\)\*\k\+\|\_s\*\%(\k\@!\.\)\+\)',
+	    \   CompleteHelper#Repeat#GetPattern(s:fullText),
 	    \   {
 	    \       'complete': s:GetCompleteOption(),
 	    \       'bufferPredicate': function('SameFiletypeComplete#FiletypePredicate'),
