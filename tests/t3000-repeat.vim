@@ -7,7 +7,7 @@ call SetCompletion("\<C-x>=")
 
 call InsertRepeat('Comple', 0, 0)
 
-call InsertRepeat('{ voi', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+call InsertRepeat('{ voi', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 call InsertRepeat('voi', 0, 0, 0, 0, 0, 0, 0)
 call InsertRepeat('voi', 0, 0, 0, 0, 0, 0)
 call InsertRepeat('voi', 0, 0, 0, 0, 0)
