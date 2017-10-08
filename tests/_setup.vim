@@ -1,3 +1,6 @@
+call vimtest#AddDependency('vim-ingo-library')
+"call vimtest#AddDependency('vim-CompleteHelper')
+
 runtime plugin/SameFiletypeComplete.vim
 
 set completefunc=SameFiletypeComplete#SameFiletypeComplete
