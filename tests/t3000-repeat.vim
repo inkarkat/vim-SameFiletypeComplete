@@ -4,6 +4,7 @@ source ../helpers/insert.vim
 
 new +setf\ cpp
 call SetCompletion("\<C-x>=")
+call SetCompleteExpr('SameFiletypeComplete#Expr')
 
 call InsertRepeat('Comple', 0, 0)
 
