@@ -1,0 +1,6 @@
+CompleteCpp : Exception
+{ void main(int argc, char** argv) { SerializedPointer* foo = new SerializedArray("Hooo!"); } }
+void main(int argc, char** argv) { SerializedPointer
+void main(int argc, char** argv
+void main(int argc, char
+
