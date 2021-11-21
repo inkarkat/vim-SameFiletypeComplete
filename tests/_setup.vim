@@ -1,5 +1,5 @@
 call vimtest#AddDependency('vim-ingo-library')
-"call vimtest#AddDependency('vim-CompleteHelper')
+call vimtest#AddDependency('vim-CompleteHelper')
 
 runtime plugin/SameFiletypeComplete.vim
 
