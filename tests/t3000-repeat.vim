@@ -1,6 +1,6 @@
 " Test repeat of same filetype completion.
 
-source ../helpers/insert.vim
+runtime tests/helpers/insert.vim
 
 new +setf\ cpp
 call SetCompletion("\<C-x>=")
