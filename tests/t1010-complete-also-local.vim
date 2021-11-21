@@ -3,7 +3,7 @@
 new
 call SameFiletypeComplete#Expr()    " Initialize script variables.
 
-source ../helpers/completetest.vim
+runtime tests/helpers/completetest.vim
 call vimtest#StartTap()
 call vimtap#Plan(1)
 
