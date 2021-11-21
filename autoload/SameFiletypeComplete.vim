@@ -3,13 +3,17 @@
 " DEPENDENCIES:
 "   - CompleteHelper.vim autoload script
 "   - Complete/Repeat.vim autoload script
+"   - ingo/plugin/setting.vim autoload script
 "
-" Copyright: (C) 2012-2014 Ingo Karkat
+" Copyright: (C) 2012-2015 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.01.004	12-Jan-2015	Remove default g:SameFiletypeComplete_complete
+"				configuration and default to 'complete' option
+"				value instead.
 "   1.01.003	09-Apr-2014	Let CompleteHelper#Repeat#GetPattern() assemble
 "				the repeat pattern.
 "   1.01.002	07-Apr-2014	Make repeat across lines work.
@@ -18,7 +22,7 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 function! s:GetCompleteOption()
-    return (exists('b:SameFiletypeComplete_complete') ? b:SameFiletypeComplete_complete : g:SameFiletypeComplete_complete)
+    return ingo#plugin#setting#GetBufferLocal('SameFiletypeComplete_complete', &complete)
 endfunction
 
 let s:filetype = ''
