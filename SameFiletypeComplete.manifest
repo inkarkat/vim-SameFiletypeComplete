@@ -1,0 +1,3 @@
+autoload/SameFiletypeComplete.vim
+plugin/SameFiletypeComplete.vim
+doc/SameFiletypeComplete.txt
